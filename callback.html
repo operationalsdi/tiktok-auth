@@ -1,11 +1,26 @@
 <!doctype html>
 <html>
-<head><meta charset="utf-8"><title>TikTok OAuth</title></head>
-<body>
-Redirecting...
-<script>
-const GAS = "https://script.google.com/macros/s/AKfycbwfLXkRkLaLr-2p5nrpoyt5a3DVxJ9f7cjIMA4zmrDIJq2SD-IjF2qAIdtn_K40BT3Lxg/exec?p=callback";
-window.location.replace(GAS + (location.search || ""));
-</script>
-</body>
+  <head><meta charset="utf-8" /><title>TikTok Callback</title></head>
+  <body>Redirecting...</body>
+  <script>
+    const WEBAPP = "https://script.google.com/macros/s/AKfycbwfLXkRkLaLr-2p5nrpoyt5a3DVxJ9f7cjIMA4zmrDIJq2SD-IjF2qAIdtn_K40BT3Lxg/exec"; 
+    // contoh: https://script.google.com/macros/s/AKfycb.../exec
+
+    const url = new URL(window.location.href);
+    const code = url.searchParams.get("code");
+    const state = url.searchParams.get("state");
+    const error = url.searchParams.get("error");
+    const error_type = url.searchParams.get("error_type");
+
+    // lempar balik ke Apps Script (boleh query di sini)
+    const to = new URL(WEBAPP);
+    to.searchParams.set("p", "callback");
+
+    if (code) to.searchParams.set("code", code);
+    if (state) to.searchParams.set("state", state);
+    if (error) to.searchParams.set("error", error);
+    if (error_type) to.searchParams.set("error_type", error_type);
+
+    window.location.replace(to.toString());
+  </script>
 </html>
