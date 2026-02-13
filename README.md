@@ -1,1 +1,1 @@
-# tiktok-auth.
+# tiktok-auth
