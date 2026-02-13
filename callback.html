@@ -1,19 +1,16 @@
 <!doctype html>
 <html>
   <head><meta charset="utf-8" /></head>
-  <body>Redirecting...</body>
-  <script>
-    const APPS_SCRIPT_EXEC = "https://script.google.com/macros/s/AKfycbxB8Q3igJQk3wgAcI6o46OlrMbuY0FjP_ns86R2z28_vjaejTQfc4Ky3HrLqFNik-w8XA/exec";
+  <body>
+    <script>
+      // GANTI dengan WEBAPP_URL kamu (yang /exec)
+      const WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyW8taWdTvcjyUKDwhGVgUR8Eg0qCI2VM2gAy8IsSDtBzdzo3p_kiFB8eaQsyNr1Sya8Q/exec";
 
-    const qs = new URLSearchParams(window.location.search);
-    const out = new URLSearchParams();
-
-    ["code","state","scopes","error","error_description"].forEach(k => {
-      const v = qs.get(k);
-      if (v) out.set(k, v);
-    });
-
-    // forward to Apps Script callback handler (boleh pakai query di sini)
-    window.location.replace(`${APPS_SCRIPT_EXEC}?p=callback&${out.toString()}`);
-  </script>
+      // TikTok redirect ke halaman ini membawa ?code=...&state=...&scopes=...
+      // Kita lempar balik ke Apps Script callback:
+      const qs = window.location.search || "";
+      window.location.replace(WEBAPP_URL + "?p=callback" + (qs ? "&" + qs.slice(1) : ""));
+    </script>
+    Redirecting...
+  </body>
 </html>
