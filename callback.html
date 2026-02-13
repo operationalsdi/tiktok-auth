@@ -1,21 +1,19 @@
 <!doctype html>
 <html>
   <head><meta charset="utf-8" /></head>
-  <body>
-    Redirecting...
-    <script>
-      const APPS_SCRIPT_EXEC = "https://script.google.com/macros/s/AKfycbyaVVfjfyvHlvlQn6CdjCB__ALe-cNYkWHUULDl5Q3OGBFnQDQfXRKONlkYqlcXYVAmSA/exec";
+  <body>Redirecting...</body>
+  <script>
+    const APPS_SCRIPT_EXEC = "https://script.google.com/macros/s/AKfycbyaVVfjfyvHlvlQn6CdjCB__ALe-cNYkWHUULDl5Q3OGBFnQDQfXRKONlkYqlcXYVAmSA/exec";
 
-      const qs = new URLSearchParams(window.location.search);
+    const qs = new URLSearchParams(window.location.search);
+    const out = new URLSearchParams();
 
-      // forward only what we need
-      const out = new URLSearchParams();
-      ["code","state","scopes","error","error_description"].forEach(k => {
-        if (qs.get(k)) out.set(k, qs.get(k));
-      });
+    ["code","state","scopes","error","error_description"].forEach(k => {
+      const v = qs.get(k);
+      if (v) out.set(k, v);
+    });
 
-      // forward to Apps Script callback handler (yang pakai query)
-      window.location.replace(`${APPS_SCRIPT_EXEC}?p=callback&${out.toString()}`);
-    </script>
-  </body>
+    // forward to Apps Script callback handler (boleh pakai query di sini)
+    window.location.replace(`${APPS_SCRIPT_EXEC}?p=callback&${out.toString()}`);
+  </script>
 </html>
